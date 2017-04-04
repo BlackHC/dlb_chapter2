@@ -107,7 +107,7 @@ We can determine this global minimum <img alt="$x^*_\alpha$" src="https://rawgit
 
 This is exactly the definition of the pseudoinverse without the limit. So we have found:
 
-<p align="center"><img alt="$$&#10;x^*_{\alpha} = \operatorname{argmin} _{x}\left| \left| Ax-b\right| \right| _{2}^{2}+\alpha \left\| x\right\| _{2}^{2} = \left( A^{T}A+\alpha I\right) ^{-1}A^{T}b&#10;$$" src="https://rawgit.com/blackhc/dlb_chapter2/master/svgs/9366886b3ce1e3a74f218827a76c3a5c.svg?invert_in_darkmode" align=middle width="404.11469999999997pt" height="23.656545pt"/></p>
+<p align="center"><img alt="$$&#10;x^*_{\alpha} = \underset{x}{\operatorname{argmin}} \left| \left| Ax-b\right| \right| _{2}^{2}+\alpha \left\| x\right\| _{2}^{2} = \left( A^{T}A+\alpha I\right) ^{-1}A^{T}b&#10;$$" src="https://rawgit.com/blackhc/dlb_chapter2/master/svgs/33e328a9a494c5706523626b0530f16c.svg?invert_in_darkmode" align=middle width="395.83829999999995pt" height="31.03353pt"/></p>
 
 with <img alt="$c_\alpha \left (x^*_\alpha \right ) \leq c_\alpha \left ( x \right )$" src="https://rawgit.com/blackhc/dlb_chapter2/master/svgs/bb41baf8e61121404e16575fef08cb69.svg?invert_in_darkmode" align=middle width="113.92903499999998pt" height="24.56552999999997pt"/> for all <img alt="$x$" src="https://rawgit.com/blackhc/dlb_chapter2/master/svgs/332cc365a4987aacce0ead01b8bdcc0b.svg?invert_in_darkmode" align=middle width="9.359955000000003pt" height="14.102549999999994pt"/>, and <img alt="$x^*_\alpha$" src="https://rawgit.com/blackhc/dlb_chapter2/master/svgs/6ec6885a6e2b7f5a1f2d9652206f8961.svg?invert_in_darkmode" align=middle width="17.873955000000002pt" height="22.598730000000007pt"/> denotes the minimum point.
 
