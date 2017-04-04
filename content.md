@@ -13,8 +13,9 @@ You can click on the formula to jump into the book. (It's really awesome that al
 This formula is mystifying. What is its origin? And why does it do what the book says it does?
 
 We can get a feeling for its origin by looking at the equation $Ax=b$ that it solves:
+
 $$
-\begin{align*} Ax &=b &|& A^{T}\cdot \\ A^{T}Ax &=A^{T}b &|& \left( A^{T}A\right) ^{-1} \cdot \\ \left( A^{T}A\right) ^{-1}A^{T}Ax &=\left( A^{T}A\right) ^{-1}A^{T}b & \\ x &=\left( A^{T}A\right) ^{-1}A^{T}b & \end{align*}
+\begin{align*} Ax &=b &|& A^{T}\cdot \\ A^{T}Ax &=A^{T}b &|& \left( A^{T}A\right) ^{-1} \cdot \\ \left( A^{T}A\right) ^{-1}A^{T}Ax &=\left( A^{T}A\right) ^{-1}A^{T}b & & \\ x &=\left( A^{T}A\right) ^{-1}A^{T}b  & & \end{align*}
 $$
 
 So we start with the equation that we want to solve and find a more complex form for solving for $x$ than the usual left-multiplication with the inverse $A^{-1}$. This is already useful if $A^T A$ is invertible and $A$ is not square (because matrix inverses only exist for square matrices). 
@@ -37,24 +38,34 @@ $$
 Since we cannot always invert $A^TA$ (respectively $AA^T$), an obvious question is:
 
 ### Why can we invert $AA^T+ \alpha I$ for positive $\alpha$?
+
 Let's examine this. [For a matrix to be invertible](https://en.wikipedia.org/wiki/Invertible_matrix), its kernel has to only contain the zero vector:
+
 $$\ker \left( A^{T}A+\alpha I\right) =\left\{ 0\right\}$$
+
 To prove that this is the case for $\left( AA^{T}+\alpha I\right)$, we need to show that:
+
 $$  \left( A^{T}A+\alpha I\right) v = 0 \implies v = 0$$
+
 So starting with the left side, we can rephrase it as follows:
+
 $$ \begin{align*} 
 & & \left( A^{T}A+\alpha I\right) v&= 0\\ 
 & \Leftrightarrow &A^{T}Av+\alpha Iv&= 0\\ 
 & \Leftrightarrow &A^{T}Av &= -\alpha v
 \end{align*} $$
+
 If $v \ne 0$, this would mean that $-\alpha$ is a negative [eigenvalue](https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors) of $A^TA$ as $\alpha$ is $>0$.
 
 #### Can $A^TA$ have negative eigenvalues? 
+
 Let's assume $v \ne 0$ and $-\alpha$ is a negative eigenvalue, that is $A^{T}Av = -\alpha v$ holds (and $\alpha > 0$). We can left-multiply with $v^T$ and obtain:
+
 $$ 
 \begin{align*} & \Leftrightarrow v^{T}A^{T}Av=v^{T}\left( -\alpha v\right) \\ & \Leftrightarrow \left\| Av\right\| _{2}^{2}=-\alpha v^{T}v=-\alpha \left\| v\right\| _{2}^{2}\\ & \Leftrightarrow -\alpha =\dfrac {\left\| Av\right\| _{2}^{2}} {\left\| v\right\| _{2}^{2}}\geq 0
 \end{align*} 
 $$
+
 (We can divide by $\left\| v\right\| _{2}^{2}$ because we assume $v\ne0$.)
 Now this means, that $-\alpha$ has to be $>0$, so it is not a negative eigenvalue and a contradiction to our initial assumption $\alpha > 0$. In fact, we have just shown that $A^TA$ in general can only have non-negative eigenvalues. (We can show the same for $AA^T$ the same way.) 
 
@@ -70,6 +81,7 @@ Matrix inversion is continuous in the space of invertible matrices. You might re
 > $$ \lim_{n \to \infty } f \left ( x_n \right ) = f \left ( \lim_{n \to \infty} x_n \right ) = f \left( x \right).$$ 
 
 Assuming $A^T A$ is invertible and using the fact that matrix inversion is continuous for invertible matrices, we now see:
+
 $$ \begin{align*} 
 \lim _{\alpha \searrow 0}\left( A^{T} A +\alpha I\right) ^{-1} A^T &= \left( \lim _{\alpha \searrow 0} A^{T} A +\alpha I\right) ^{-1} A^T \\
 &= \left( A^{T}A+0 \, I\right) ^{-1} A^T \\
@@ -79,14 +91,15 @@ $$ \begin{align*}
 So in this special case, the pseudoinverse is exactly the solution we have come up with ourselves.
 
 ### Two properties of the pseudoinverse
+
 There are two properties mentioned in text that are interesting but not obvious:
 
-> [When $A$ has more columns than rows, then solving a linear equation using the pseudoinverse provides one of the many possible solutions. Specifically, it provides the solution $x=A^+y$ with minimal Euclidean norm $\left\| x \right\|_2$ among all possible solutions.
-    When $A$ has more rows than columns, it is possible for there to be no solution. In this case, using the pseudoinverse gives us the $x$ for which $Ax$ is as close as possible to $y$ in terms of Euclidean norm $\left\| Ax - y \right\|_2$.](http://www.deeplearningbook.org/contents/linear_algebra.html#pf10)
+> [When $A$ has more columns than rows, then solving a linear equation using the pseudoinverse provides one of the many possible solutions. Specifically, it provides the solution $x=A^+y$ with minimal Euclidean norm $\left\| x \right\|_2$ among all possible solutions. When $A$ has more rows than columns, it is possible for there to be no solution. In this case, using the pseudoinverse gives us the $x$ for which $Ax$ is as close as possible to $y$ in terms of Euclidean norm $\left\| Ax - y \right\|_2$.](http://www.deeplearningbook.org/contents/linear_algebra.html#pf10)
 
 These properties are not obvious and their deduction is enlightening towards the chosen definition of the pseudoinverse, specifically the use of the limit and the constraint of $\alpha$ to be $>0$.
 
 #### A related optimization problem
+
 To prove the properties, let's look at the following regularized minimum-least-squares problem. This is something that is formulated in more detail in [Chapter 4 of the book](http://www.deeplearningbook.org/contents/numerical.html#pf11), but it is quite useful here:
 
 $$\min _{x}\left| \left| Ax-b\right| \right| _{2}^{2}+\alpha \left\| x\right\| _{2}^{2}, \, \alpha > 0$$
@@ -98,10 +111,15 @@ c_\alpha\left( x\right) &=\left\| Ax-b\right\| _{2}^{2}+\alpha \left\| x\right\|
 & =\left( Ax-b\right) ^{T}\left( Ax-b\right) +\alpha x^{T}x\\
 & =x^{T}AAx-2b^{T}Ax+b^{T}b+\alpha x^{T} x \end{align*} \\
 $$
+
 The first derivative of $c_\alpha$ is:
+
 $$ \nabla c_\alpha\left( x\right) =2A^{T}Ax-2A^{T}b+2\alpha x$$
+
 And the second derivative is:
+
 $$ H_\alpha \left ( x \right ) = 2A^T A + 2\alpha I$$
+
 $H_\alpha$ is [positive definite](https://en.wikipedia.org/wiki/Positive-definite_matrix), that is $v^T H_\alpha \left ( x \right ) v \ge 0$ for all $v$. Why? We have already seen that $A^T A$ only has non-negative eigenvalues, so it is positive semidefinite by definition and $\alpha I$ is trivially positive definite for $\alpha > 0$. The sum of the two is positive definite again.  Thus $c$ is a [strictly convex function](https://en.wikipedia.org/wiki/Convex_function). This is along to lines of the one-dimensional case: when the second derivative is $> 0$ everywhere, the function is strictly convex. Convex functions have a global minimum and, for strictly convex functions, this global minimum is unique. So we know there is only exactly one point that minimizes the cost function $c_\alpha$.
 
 We can determine this global minimum $x^*_\alpha$ by solving $\nabla c_\alpha \left ( x \right ) = 0$:
@@ -128,7 +146,9 @@ $$
 \DeclareMathOperator*{\argmin}{arg\,min} 
 x^*= \lim_{x \searrow 0} \left( A^{T}A+\alpha I\right) ^{-1}A^{T}b
 $$
+
 with $c \left (x^* \right ) \leq c \left ( x \right )$ for all $x$ with
+
 $$c \left ( x \right ) = \lim_{\alpha \searrow 0} \left\| Ax-b\right\| _{2}^{2}+\alpha \left\| x\right\| _{2}^{2} = \left\| Ax-b\right\| _{2}^{2}.$$
 
 What do we gain from this? Well for one, we now know that this expression minimizes $\left| \left| Ax-b\right| \right| _{2}^{2}$. Furthermore, if there is a solution for $A x =b$, we can easily use a similar approach to see that the solution $x^*$ is smaller under Euclidean norm than any (other) solution $\hat x$ for $Ax=b$.
@@ -153,7 +173,9 @@ $$\begin{align*}
 \Leftrightarrow &  \left\| Ax^{*}-b\right\| _{2}^{2} \le 0
 \end{align*}
 $$
+
 Because norms are always non-negative, we have $0 \le \left\| Ax^{*}-b\right\| _{2}^{2} \le 0$, so $\left\| Ax^{*}-b\right\| _{2}^{2} = 0$. And we have observed above that this is equivalent to $Ax^{*} = b$. So if there is at least one exact solution to the problem, we are sure to obtain an exact one, too. To be fair, we could have deduced this in the previous section. However, we can take another limit on the inequality $c_{\alpha}\left( x_{\alpha }^{*}\right) \leq \alpha \left\| \hat x\right\| _{2}^{2}$ and obtain a more interesting result. This time, we only take the limit $\alpha \searrow 0$ of $x^{*}_\alpha$, but keep $c_\alpha$ fixed:
+
 $$
 \begin{align*}
 &&c_{\alpha}\left( x_{\alpha }^{*}\right) &\leq \alpha \left\| \hat x\right\| _{2}^{2} \\
@@ -178,8 +200,11 @@ The broadcasting notation in the Deep Learning book is weird. For one moment, le
 > [In the context of deep learning, we also use some less conventional notation. We allow the addition of matrix and a vector, yielding another matrix: $C=A+b$, where $C_{i,j}=A_{i,j}+b_j$. In other words, the vector $b$ is added to each row of the matrix. This shorthand eliminates the need to deﬁne a matrix with $b$ copied into each row before doing the addition. This implicit copying of $b$ to many locations is called broadcasting.](http://www.deeplearningbook.org/contents/linear_algebra.html#pf4)
 
 Let's say $A \in \mathbb{R}^{3 \times 3}$ and $b \in \mathbb{R}^3$, for example:
+
 $$ A = \left[\begin{matrix}0 & 0 & 0\\1 & 1 & 1\\2 & 2 & 2\end{matrix}\right] , b = \left[\begin{matrix}1\\2\\3\end{matrix}\right] $$
+
 Then, with broadcasting:
+
 $$ A + b = \left[\begin{matrix}1 & 2 & 3\\2 & 3 & 4\\3 & 4 & 5\end{matrix}\right] $$
 
 How do we get there? Essentially, we take the vector $b \in \mathbb{R}^3$, interpret it as a row vector, and add it to every row of the matrix, so:
@@ -201,4 +226,6 @@ There is much more I could write about, but I think these were the most interest
 Stay tuned, \
  Andreas
 
-PS: This a gist repost of a post on my blog http://blog.blackhc.net/2017/03/dlb-chapter2/index.html. I wish Medium was supporting LaTeX formulas properly...
+PS: Thanks to my friend Armin Krupp for suggestions and corrections of the draft. All current mistakes and factual errors have been added later.
+
+PSS: This a gist repost of a post on my blog http://blog.blackhc.net/2017/03/dlb-chapter2/index.html. I wish Medium was supporting LaTeX formulas properly...
