@@ -134,8 +134,7 @@ $$
 This is exactly the definition of the pseudoinverse without the limit. So we have found:
 
 $$
-\DeclareMathOperator*{\argmin}{arg\,min} 
-x^*_{\alpha} = \argmin _{x}\left| \left| Ax-b\right| \right| _{2}^{2}+\alpha \left\| x\right\| _{2}^{2} = \left( A^{T}A+\alpha I\right) ^{-1}A^{T}b
+x^*_{\alpha} = \operatorname{argmin} _{x}\left| \left| Ax-b\right| \right| _{2}^{2}+\alpha \left\| x\right\| _{2}^{2} = \left( A^{T}A+\alpha I\right) ^{-1}A^{T}b
 $$
 
 with $c_\alpha \left (x^*_\alpha \right ) \leq c_\alpha \left ( x \right )$ for all $x$, and $x^*_\alpha$ denotes the minimum point.
@@ -143,7 +142,6 @@ with $c_\alpha \left (x^*_\alpha \right ) \leq c_\alpha \left ( x \right )$ for 
 This expression is continuous in $\alpha$, so we can take the limit $\alpha \searrow 0$. Remember, we need the constraint of $\alpha > 0$ for $A^TA + \alpha I$ to be invertible, so we can only take the limit from above. Taking the limit, we obtain:
 
 $$
-\DeclareMathOperator*{\argmin}{arg\,min} 
 x^*= \lim_{x \searrow 0} \left( A^{T}A+\alpha I\right) ^{-1}A^{T}b
 $$
 
